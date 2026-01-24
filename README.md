@@ -10,7 +10,7 @@ You must have:
 
 # Connecting modules to Arduino Nano
 **TFT Display** -> **Arduino**
-> LED -> 3.3V
+> LED -> 3.3V\n
 > SCK -> D13
 > SDA -> D11
 > A0 -> 9
