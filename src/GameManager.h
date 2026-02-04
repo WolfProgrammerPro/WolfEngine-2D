@@ -1,14 +1,12 @@
 #pragma once
 
-#include <GameObject.h>
-#include <Renderer.h>
+#include <Arduino.h>
 #include <MapsManager.h>
-#include <PlayerMovement.h>
+#include <DinamicObjectMovement.h>
 
 class GameManager
 {
-    public:
-        void removeAllObjectsWithId(MapsManager& mapsManager, unsigned short id, Renderer& renderer);
-        void finishLevel(MapsManager& MapsManager, Renderer& renderer, PlayerMovement& playerMovement);
-    private:
+public:
+    void removeAllObjectsWithId(MapsManager& mapsManager, unsigned short id, Renderer& renderer);
+    void finishLevel(MapsManager& mapsManager, Renderer& renderer, DinamicObjectMovement& objectMovement);
 };

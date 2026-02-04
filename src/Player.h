@@ -1,11 +1,21 @@
 #pragma once
-#include <GameObject.h>
+#include <DinamicObject.h>
+#include <PlayerCollider.h>
+#include <PlayerMovement.h>
+#include <Renderer.h>
 #include <Utils.h>
 
-class Player : public GameObject
+
+
+class Player
 {
     public:
-        Player() : GameObject(Vector2{0,0}, PLAYER) {};
-        Player(Vector2 pos) : GameObject(pos, PLAYER) {};
-        void setPosition(Vector2 pos);
+        Player() : gameObject(Vector2{0,0}, Vector2{0,0}, PLAYER), playerCollider(gameObject), playerMovement(gameObject) {};
+        Player(Vector2 pos, Vector2 _size) : gameObject(pos, _size, PLAYER), playerCollider(gameObject), playerMovement(gameObject) {};
+        void update(Renderer& renderer, MapsManager& mapsManager);
+        DinamicObject& getGameObject()  {return gameObject;}
+    private:
+        DinamicObject gameObject;
+        PlayerCollider playerCollider;
+        PlayerMovement playerMovement;
 };

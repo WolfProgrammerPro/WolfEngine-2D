@@ -1,9 +1,7 @@
 #include <Player.h>
 
-void Player::setPosition(Vector2 pos)
+void Player::update(Renderer& renderer, MapsManager& mapsManager)
 {
-    if (pos.x >= 0 && pos.x < MAP_WIDTH  && pos.y >= 0 && pos.y < MAP_HEIGHT)
-    {
-        position = pos;
-    }
+    playerMovement.updatePosition(mapsManager);
+    playerCollider.checkCollisions(renderer, mapsManager, playerMovement);
 }

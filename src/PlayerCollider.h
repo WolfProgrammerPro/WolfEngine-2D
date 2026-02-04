@@ -1,16 +1,13 @@
 #pragma once
 
-#include <Physics.h>
-#include <GameObject.h>
-#include <GameManager.h>
+#include <Collider.h>
+#include <Arduino.h>
 
-class PlayerCollider
+
+
+class PlayerCollider : public Collider
 {
-    public:
-        PlayerCollider(Player& _player) : player(_player) {};
-        void checkCollisions(Renderer& renderer, MapsManager& mapsManager,PlayerMovement& playerMovement);
-    private:
-        Player& player;
-        Physics playerPhysics;
-        GameManager gameManager;
+public:
+    PlayerCollider(DinamicObject& player) : Collider(player) {};
+    void checkCollisions(Renderer& renderer, MapsManager& mapsManager, DinamicObjectMovement& objectMovement) override;
 };

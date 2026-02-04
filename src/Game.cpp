@@ -3,7 +3,7 @@
 
 
 
-Game::Game() : player(Vector2{STARTER_PLAYER_POSITION_X, STARTER_PLAYER_POSITION_Y}), playerMovement(player), playerCollider(player){}
+Game::Game() : player(Vector2{STARTER_PLAYER_POSITION_X, STARTER_PLAYER_POSITION_Y}, Vector2{PLAYER_SIZE_X, PLAYER_SIZE_Y}){}
 
 
 void Game::start()
@@ -15,9 +15,8 @@ void Game::start()
 
 void Game::loop()
 {
-    renderer.renderPlayer(player);
-    playerMovement.move(mapsManager);
-    playerCollider.checkCollisions(renderer, mapsManager, playerMovement);
+    renderer.renderPlayer(player.getGameObject());
+    player.update(renderer, mapsManager);
 
 }
 

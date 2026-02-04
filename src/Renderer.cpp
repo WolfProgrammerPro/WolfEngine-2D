@@ -22,13 +22,7 @@ void Renderer::setScreenColor(uint16_t color)
 void Renderer::render(const GameObject* const& gameObjects, size_t size)
 {
 
-    for (size_t i = 0; i < size; i++)
-    {
-        const GameObject& object = gameObjects[i];
-        
-        renderObject(object);
-        
-    }
+    
     for (size_t i = 0; i < size; i++)
     {
         const GameObject& object = gameObjects[i];
@@ -39,28 +33,34 @@ void Renderer::render(const GameObject* const& gameObjects, size_t size)
         }
         
     }
-    
+
+    for (size_t i = 0; i < size; i++)
+    {
+        const GameObject& object = gameObjects[i];
+        
+        if (object.getType() == DOOR)
+        {
+            renderObject(object);
+        }
+    }
 }
 
 
-void Renderer::renderPlayer(GameObject player)
+void Renderer::renderPlayer(const GameObject& player)
 {
     Vector2 playerPosition = player.getPosition();
     if (playerPosition != oldPlayerPosition)
     {
-        int playerPositionX = playerPosition.x * SIZE_MULTIPLIER;
-        int playerPositionY = REAL_HEIGHT - (playerPosition.y+1) * SIZE_MULTIPLIER;
-
         if (oldPlayerPosition.x != -1)
         {
+            int sizeX = player.getSize().x * SIZE_MULTIPLIER;
+            int sizeY = player.getSize().y * SIZE_MULTIPLIER;
             int oldPlayerPositionX = oldPlayerPosition.x * SIZE_MULTIPLIER;
-            int oldPlayerPositionY = REAL_HEIGHT - (oldPlayerPosition.y+1) * SIZE_MULTIPLIER;
-            
-            display.fillRect(oldPlayerPositionX, oldPlayerPositionY, SIZE_MULTIPLIER, SIZE_MULTIPLIER, ST7735_BLACK);
+            int oldPlayerPositionY = (MAP_HEIGHT - oldPlayerPosition.y - player.getSize().y) * SIZE_MULTIPLIER;
+            display.fillRect(oldPlayerPositionX, oldPlayerPositionY, sizeX, sizeY, ST7735_BLACK);
         }
-
         oldPlayerPosition = playerPosition;
-        display.fillRect(playerPositionX, playerPositionY, SIZE_MULTIPLIER, SIZE_MULTIPLIER, getGameObjectColor(PLAYER));
+        renderObject(player);
     }
 }
 
@@ -72,28 +72,27 @@ void Renderer::renderObject(const GameObject& gameObject)
     {
         uint16_t color = getGameObjectColor(type);
         Vector2 pos = gameObject.getPosition();
+        int sizeX = gameObject.getSize().x * SIZE_MULTIPLIER;
+        int sizeY = gameObject.getSize().y * SIZE_MULTIPLIER;
         int screenX = pos.x * SIZE_MULTIPLIER;
-        int screenY = REAL_HEIGHT - (pos.y+1) * SIZE_MULTIPLIER;
+        int screenY = (MAP_HEIGHT - pos.y - gameObject.getSize().y) * SIZE_MULTIPLIER;
+        
         if (gameObject.isActive())
         {
             if (type == DOOR)
             {
-                display.fillRect(screenX, screenY, SIZE_MULTIPLIER, SIZE_MULTIPLIER, ST7735_BLACK);
-                display.drawRect(screenX, screenY, SIZE_MULTIPLIER, SIZE_MULTIPLIER, color);
-            }
-            else if (type == WALL)
-            {
-                display.fillRect(screenX, screenY, SIZE_MULTIPLIER, SIZE_MULTIPLIER, color);
+                display.fillRect(screenX, screenY, sizeX, sizeY, ST7735_BLACK);
+                display.drawRect(screenX, screenY, sizeX, sizeY, color);
             }
             else
             {
-                display.fillRect(screenX, screenY, SIZE_MULTIPLIER, SIZE_MULTIPLIER, color);
+                display.fillRect(screenX, screenY, sizeX, sizeY, color);
             }
         }
         else
         {
-            display.fillRect(screenX, screenY, SIZE_MULTIPLIER, SIZE_MULTIPLIER, ST7735_BLACK);
-        }  
+            display.fillRect(screenX, screenY, sizeX, sizeY, ST7735_BLACK);
+        }
     }  
 }
 

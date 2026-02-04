@@ -1,12 +1,13 @@
 #pragma once
 
 #include <Arduino.h>
-#include <GameObject.h>
-#include <Player.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
 #include <SPI.h>
 #include <Utils.h>
+
+#include <GameObject.h>
+
 
 #define TFT_CS   10
 #define TFT_RST  8
@@ -19,7 +20,7 @@ public:
     void init();
     void setScreenColor(uint16_t color);
     void render(const GameObject* const& gameObjects, size_t size);
-    void renderPlayer(GameObject player);
+    void renderPlayer(const GameObject& player);
     void renderObject(const GameObject& gameObject);
     uint16_t getGameObjectColor(GameObjectType type);
 private:

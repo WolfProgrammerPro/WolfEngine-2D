@@ -24,7 +24,5 @@ public:
 private:
     Renderer renderer;
     Player player;
-    PlayerMovement playerMovement;
-    PlayerCollider playerCollider;
     MapsManager mapsManager;
 };

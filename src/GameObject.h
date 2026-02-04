@@ -34,29 +34,24 @@ struct Vector2
 
 class GameObject{
     private:
-        #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Wreorder"
+        Vector2 position;
         GameObjectType type;
-        
         unsigned short id;
         bool active;
-        #pragma GCC diagnostic pop
+        Vector2 size;
     public:
-        #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Wreorder"
-        GameObject() : type(NONE), position({0,0}), id(0), active(false) {};
-        GameObject(Vector2 pos, GameObjectType _type = WALL, unsigned short _id = 0) : position(pos), type(_type), id(_id), active(true) {};
+        GameObject() : position({0,0}), type(NONE), id(0), active(false), size({0,0}) {};
+        GameObject(Vector2 pos, Vector2 _size, GameObjectType _type = WALL, unsigned short _id = 0) : position(pos), type(_type), id(_id), active(true), size(_size) {};
         #pragma GCC diagnostic pop
         Vector2 getPosition() const {return position;}
+        Vector2 getSize() const {return size;}
         GameObjectType getType() const {return type;}
         bool isActive() const {return active;}
         unsigned short getId() const {return id;}
         inline void setActive(bool newValue) {active = newValue;}
-    
+
     protected:
-        #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Wreorder"
-        Vector2 position; 
-        #pragma GCC diagnostic pop
+        void setPositionValue(Vector2 value) {position = value;}
+        
 };
 

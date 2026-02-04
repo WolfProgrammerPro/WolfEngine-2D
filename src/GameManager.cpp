@@ -1,5 +1,4 @@
 #include <GameManager.h>
-#include <Arduino.h>
 
 void GameManager::removeAllObjectsWithId(MapsManager& mapsManager, unsigned short id, Renderer& renderer)
 {
@@ -15,8 +14,8 @@ void GameManager::removeAllObjectsWithId(MapsManager& mapsManager, unsigned shor
     
 }
 
-void GameManager::finishLevel(MapsManager& mapsManager, Renderer& renderer, PlayerMovement& playerMovement)
+void GameManager::finishLevel(MapsManager& mapsManager, Renderer& renderer, DinamicObjectMovement& objectMovement)
 {
     mapsManager.nextMap(renderer);
-    playerMovement.resetPlayer();
+    objectMovement.resetPosition();
 }

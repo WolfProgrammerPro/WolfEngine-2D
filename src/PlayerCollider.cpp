@@ -1,13 +1,13 @@
 #include <PlayerCollider.h>
-#include <Arduino.h>
 
-void PlayerCollider::checkCollisions(Renderer& renderer, MapsManager& mapsManager,PlayerMovement& playerMovement)
+
+void PlayerCollider::checkCollisions(Renderer& renderer, MapsManager& mapsManager,DinamicObjectMovement& objectMovement)
 {
     
-    GameObject collision = playerPhysics.getCollision(mapsManager, player);
+    GameObject collision = physics.getCollision(mapsManager, gameObject);
     if (collision.isActive() == true && collision.getType() != NONE)
     {
         if (collision.getType() == KEY) {gameManager.removeAllObjectsWithId(mapsManager, collision.getId(), renderer);}
-        if (collision.getType() == FINISH) {gameManager.finishLevel(mapsManager, renderer, playerMovement);}
+        if (collision.getType() == FINISH) {gameManager.finishLevel(mapsManager, renderer, objectMovement);}
     }
 }

@@ -1,38 +1,5 @@
 #include <PlayerMovement.h>
 
- PlayerMovement::PlayerMovement(Player& _player) : player(_player)
- {
-    //resetPlayer();
- }
-
-
-void PlayerMovement::move(MapsManager& mapsManager)
-{
-    if (millis() - lastMove >= JOYSTICK_READ_MINIMAL_COOLDOWN)
-    {
-        lastMove = millis();
-        movePlayer(mapsManager);
-    }
-}
-
-void PlayerMovement::resetPlayer()
-{
-    player.setPosition(Vector2{STARTER_PLAYER_POSITION_X, STARTER_PLAYER_POSITION_Y});
-}
-
-void PlayerMovement::movePlayer(MapsManager& mapsManager)
-{
-    Vector2 movementDirection = getMovementDirection();
-    Vector2 newPlayerPosition = player.getPosition() + movementDirection;
-    
-    if (!physics.hasObjectOnThisPosition(mapsManager, newPlayerPosition))
-    {
-        player.setPosition(newPlayerPosition);
-    }
-}
-
-
-
 Vector2 PlayerMovement::getMovementDirection()
 {
     int x = 0;

@@ -1,22 +1,15 @@
 #pragma once
 
-#include <Player.h>
 #include <InputManager.h>
 #include <Physics.h>
 #include <Utils.h>
+#include <DinamicObjectMovement.h>
 
-class PlayerMovement
+class PlayerMovement : public DinamicObjectMovement
 {
     public:
-        PlayerMovement(Player& _player);
-        void move(MapsManager& mapsManager);
-        void resetPlayer();
+        PlayerMovement(DinamicObject& player) : DinamicObjectMovement(player, Vector2{STARTER_PLAYER_POSITION_X, STARTER_PLAYER_POSITION_Y}, JOYSTICK_READ_MINIMAL_COOLDOWN) {};
     private:
         InputManager inputManager;
-        Physics physics;
-        Player& player;
-        unsigned long lastMove;
-        Vector2 getMovementDirection();
-        void movePlayer(MapsManager& mapsManager);
-        void checkCollision(MapsManager& mapsManager);
+        Vector2 getMovementDirection() override;
 };
